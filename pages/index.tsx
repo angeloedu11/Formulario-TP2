@@ -274,7 +274,7 @@ const Home: NextPage = () => {
 
     // Agregar la recomendacion en caso la respuesta no sea correcta
     setRecomendaciones([])
-    let recs = [];
+    let recs: any = [];
     data.funciones.forEach((funcion: any) => {
       funcion.dominios.forEach((dominio: any) => {
         dominio.preguntas.forEach((pregunta: any, index: number) => {
