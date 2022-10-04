@@ -2,6 +2,16 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { snakeCase } from "snake-case";
+import {
+  Chart as ChartJS,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Radar } from "react-chartjs-2";
 
 const Home: NextPage = () => {
   const [data, setData] = useState<any>();
@@ -11,7 +21,18 @@ const Home: NextPage = () => {
   const [respuestas, setRespuestas] = useState<any>([]);
   const [recomendaciones, setRecomendaciones] = useState<any>([]);
 
+  const [chartData, setChartData] = useState<any>();
+
   useEffect(() => {
+    ChartJS.register(
+      RadialLinearScale,
+      PointElement,
+      LineElement,
+      Filler,
+      Tooltip,
+      Legend
+    );
+    
     setFieldTypes({
       default: {
         options: [
@@ -84,7 +105,6 @@ const Home: NextPage = () => {
                   pregunta: "¿Clasifica los activos de su compañia?",
                   recomendacion:
                     "Se recomienda contar con una clasificación de los activos de la compañía tanto de software como de hardware",
-                 
                 },
                 {
                   pregunta:
@@ -441,15 +461,75 @@ const Home: NextPage = () => {
   };
 
   /**
-   * 
-   * @param e 
+   *
+   * @param e
    */
   const submit = (e: any) => {
     e.preventDefault();
+
     setIsSubmitted(false);
     setIsSubmitted(true);
 
     setTimeout(() => {
+      const config = {
+        type: "radar",
+        data: {
+          labels: data.funciones.map((funcion: any) => funcion.nombre),
+          datasets: [
+            {
+              label: "Total",
+              data: data.funciones.map((funcion: any) => {
+                let total = 0;
+                let points = 0;
+
+                funcion.dominios.forEach((dominio: any) => {
+                  dominio.preguntas.forEach((pregunta: any) => {
+                    total = total + 100;
+
+                    let respuesta = respuestas.find((respuesta: any) => {
+                      return (
+                        respuesta.funcion === funcion.nombre &&
+                        respuesta.dominio === dominio.nombre &&
+                        respuesta.pregunta === pregunta.pregunta
+                      );
+                    });
+
+                    if (respuesta) {
+                      points = points + respuesta.respuesta;
+                    }
+                  });
+                });
+
+                return (points * 100) / total;
+              }),
+              backgroundColor: "rgba(255, 99, 132, 0.2)",
+              borderColor: "rgb(255, 99, 132)",
+              pointBackgroundColor: "rgb(255, 99, 132)",
+              pointBorderColor: "#fff",
+              pointHoverBackgroundColor: "#fff",
+              pointHoverBorderColor: "rgb(255, 99, 132)",
+            },
+          ],
+        },
+        options: {
+          elements: {
+            line: {
+              borderWidth: 3,
+            },
+          },
+          scales: {
+            r: {
+              angleLines: {
+                display: false,
+              },
+              suggestedMin: 0,
+              suggestedMax: 100,
+            },
+          },
+        },
+      };
+      setChartData(config);
+
       document.getElementById("recomendaciones")?.focus();
     }, 1000);
   };
@@ -586,6 +666,16 @@ const Home: NextPage = () => {
                     ))}
                   </div>
                 ))}
+              {chartData && (
+                <div>
+                  <Radar
+                    width={400}
+                    height={400}
+                    data={chartData.data}
+                    options={chartData.options}
+                  />
+                </div>
+              )}
             </div>
           )}
         </div>
