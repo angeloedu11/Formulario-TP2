@@ -10,7 +10,7 @@ import {
   Filler,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from "chart.js";
 import { Radar } from "react-chartjs-2";
 
 const Home: NextPage = () => {
@@ -32,7 +32,7 @@ const Home: NextPage = () => {
       Tooltip,
       Legend
     );
-    
+
     setFieldTypes({
       default: {
         options: [
@@ -415,7 +415,7 @@ const Home: NextPage = () => {
     funcion: any,
     dominio: any,
     pregunta: any,
-    respuesta: any
+    value: any
   ) => {
     let i = respuestas.findIndex((respuesta: any) => {
       return (
@@ -433,10 +433,41 @@ const Home: NextPage = () => {
       funcion,
       dominio,
       pregunta,
-      respuesta,
+      value,
     };
 
     setRespuestas((respuestas: any) => [...respuestas, respuestaEl]);
+  };
+
+  /**
+   *
+   * @param funcion
+   * @returns
+   */
+  const mostrarFuncion = (funcion: any) => {
+    let respuesta = respuestas.find((respuesta: any) => {
+      return respuesta.funcion === funcion && respuesta.value <= 50;
+    });
+    if (respuesta) {
+      return true;
+    }
+    return false;
+  };
+
+  /**
+   *
+   * @param funcion
+   * @param dominio
+   * @returns
+   */
+  const mostrarDominio = (funcion: any, dominio: any) => {
+    let respuesta = respuestas.find((respuesta: any) => {
+      return respuesta.funcion === funcion && respuesta.dominio === dominio && respuesta.value <= 50;
+    });
+    if (respuesta) {
+      return true;
+    }
+    return false;
   };
 
   /**
@@ -455,7 +486,7 @@ const Home: NextPage = () => {
       );
     });
     if (respuesta) {
-      return respuesta.respuesta <= 50;
+      return respuesta.value <= 50;
     }
     return false;
   };
@@ -464,7 +495,7 @@ const Home: NextPage = () => {
    *
    * @param e
    */
-  const submit = (e: any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     setIsSubmitted(false);
@@ -495,7 +526,7 @@ const Home: NextPage = () => {
                     });
 
                     if (respuesta) {
-                      points = points + respuesta.respuesta;
+                      points = points + respuesta.value;
                     }
                   });
                 });
@@ -549,6 +580,7 @@ const Home: NextPage = () => {
             para proteger la información de las pymes
           </h1>
 
+          <form onSubmit={handleSubmit}>
           <div className="space-y-16 mb-12">
             {data &&
               data.funciones.map((funcion: any) => (
@@ -585,6 +617,7 @@ const Home: NextPage = () => {
                                         className="space-x-2"
                                       >
                                         <input
+                                          required
                                           type="radio"
                                           name={snakeCase(
                                             `${funcion.nombre}_${dominio.nombre}_${pregunta.pregunta}_${index}`
@@ -627,43 +660,54 @@ const Home: NextPage = () => {
 
           <div className="sticky bottom-0 bg-white py-4 border-t shadow-t flex mb-20">
             <button
-              onClick={submit}
+              type="submit"
               className="m-auto px-12 py-4 text-white bg-indigo-500 rounded shadow"
             >
               Enviar
             </button>
           </div>
+          </form>
 
           {isSubmitted && (
             <div
               id="recomendaciones"
               tabIndex={-1}
-              className="bg-white rounded-md shadow p-8 space-y-4"
+              className="bg-white rounded-md shadow p-8 space-y-12"
             >
               <h2 className="text-bold text-2xl font-bold">Recomendaciones:</h2>
 
               {data &&
                 data.funciones.map((funcion: any) => (
                   <div key={funcion.nombre}>
-                    <p className="text-xl">{funcion.nombre}</p>
-                    {funcion.dominios.map((dominio: any) => (
-                      <div key={dominio.nombre}>
-                        <p className="text-lg">{dominio.nombre}</p>
-                        <ul className="list-disc list-inside space-y-2">
-                          {dominio.preguntas.map(
-                            (pregunta: any, index: number) => (
+                    {mostrarFuncion(funcion.nombre) && (
+                      <>
+                        <p className="text-xl font-bold mb-4">{funcion.nombre}</p>
+                        <div className="space-y-4">
+                        {funcion.dominios.map((dominio: any) => (
+                          <div key={dominio.nombre}>
+                            {mostrarDominio(funcion.nombre, dominio.nombre) && (
                               <>
-                                {mostrarRecomendacion(
-                                  funcion.nombre,
-                                  dominio.nombre,
-                                  pregunta.pregunta
-                                ) && <li>{pregunta.recomendacion}</li>}
+                                <p className="text-lg font-semibold mb-2">{dominio.nombre}</p>
+                                <ul className="list-disc list-inside space-y-2 bg-indigo-50 p-4">
+                                  {dominio.preguntas.map(
+                                    (pregunta: any, index: number) => (
+                                      <>
+                                        {mostrarRecomendacion(
+                                          funcion.nombre,
+                                          dominio.nombre,
+                                          pregunta.pregunta
+                                        ) && <li>{pregunta.recomendacion}</li>}
+                                      </>
+                                    )
+                                  )}
+                                </ul>
                               </>
-                            )
-                          )}
-                        </ul>
-                      </div>
-                    ))}
+                            )}
+                          </div>
+                        ))}
+                        </div>
+                      </>
+                    )}
                   </div>
                 ))}
               {chartData && (
