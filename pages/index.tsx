@@ -105,6 +105,7 @@ const Home: NextPage = () => {
                   pregunta: "¿Clasifica los activos de su compañia?",
                   recomendacion:
                     "Se recomienda contar con una clasificación de los activos de la compañía tanto de software como de hardware",
+                  tipo:"tiempoPorAnio"
                 },
                 {
                   pregunta:
