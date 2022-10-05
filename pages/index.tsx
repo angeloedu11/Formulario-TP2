@@ -712,6 +712,7 @@ const Home: NextPage = () => {
                 ))}
               {chartData && (
                 <div>
+                  <p className="text-xl font-bold text-center mb-8">Variación % Cumplimiento AS - IS</p>
                   <Radar
                     width={400}
                     height={400}
