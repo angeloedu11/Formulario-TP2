@@ -17,6 +17,7 @@ const Home: NextPage = () => {
   const [data, setData] = useState<any>();
   const [fieldTypes, setFieldTypes] = useState<any>();
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [showRecomendaciones, setShowRecomendaciones] = useState<boolean>(false);
 
   const [respuestas, setRespuestas] = useState<any>([]);
   const [recomendaciones, setRecomendaciones] = useState<any>([]);
@@ -679,51 +680,7 @@ const Home: NextPage = () => {
               tabIndex={-1}
               className="bg-white rounded-md shadow p-8 space-y-12"
             >
-              <h2 className="text-bold text-2xl font-bold">Recomendaciones:</h2>
-
-              {data &&
-                data.funciones.map((funcion: any) => (
-                  <div key={funcion.nombre}>
-                    {mostrarFuncion(funcion.nombre) && (
-                      <>
-                        <p className="text-xl font-bold mb-4">
-                          {funcion.nombre}
-                        </p>
-                        <div className="space-y-4">
-                          {funcion.dominios.map((dominio: any) => (
-                            <div key={dominio.nombre}>
-                              {mostrarDominio(
-                                funcion.nombre,
-                                dominio.nombre
-                              ) && (
-                                <>
-                                  <p className="text-lg font-semibold mb-2">
-                                    {dominio.nombre}
-                                  </p>
-                                  <ul className="list-disc list-inside space-y-2 bg-indigo-50 p-4">
-                                    {dominio.preguntas.map(
-                                      (pregunta: any, index: number) => (
-                                        <>
-                                          {mostrarRecomendacion(
-                                            funcion.nombre,
-                                            dominio.nombre,
-                                            pregunta.pregunta
-                                          ) && (
-                                            <li>{pregunta.recomendacion}</li>
-                                          )}
-                                        </>
-                                      )
-                                    )}
-                                  </ul>
-                                </>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                ))}
+              <h2 className="text-bold text-2xl font-bold">Resultados:</h2>
               {chartData && (
                 <div>
                   <p className="text-xl font-bold text-center mb-8">
@@ -775,6 +732,64 @@ const Home: NextPage = () => {
                   />
                 </div>
               )}
+              <div className="text-lg cursor-pointer font-semibold flex items-center gap-2" onClick={() => setShowRecomendaciones(!showRecomendaciones)}>
+                {
+                  showRecomendaciones ? (
+                    <>
+                      <span>Ocultar recomendaciones</span>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+                    </>
+                  ) : (
+                    <>
+                      <span>Ver recomendaciones</span>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </>
+                  )
+                }
+              </div>
+              {data && showRecomendaciones &&
+                data.funciones.map((funcion: any) => (
+                  <div key={funcion.nombre}>
+                    {mostrarFuncion(funcion.nombre) && (
+                      <>
+                        <p className="text-xl font-bold mb-4">
+                          {funcion.nombre}
+                        </p>
+                        <div className="space-y-4">
+                          {funcion.dominios.map((dominio: any) => (
+                            <div key={dominio.nombre}>
+                              {mostrarDominio(
+                                funcion.nombre,
+                                dominio.nombre
+                              ) && (
+                                <>
+                                  <p className="text-lg font-semibold mb-2">
+                                    {dominio.nombre}
+                                  </p>
+                                  <ul className="list-disc list-inside space-y-2 bg-indigo-50 p-4">
+                                    {dominio.preguntas.map(
+                                      (pregunta: any, index: number) => (
+                                        <>
+                                          {mostrarRecomendacion(
+                                            funcion.nombre,
+                                            dominio.nombre,
+                                            pregunta.pregunta
+                                          ) && (
+                                            <li>{pregunta.recomendacion}</li>
+                                          )}
+                                        </>
+                                      )
+                                    )}
+                                  </ul>
+                                </>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                ))}
             </div>
           )}
         </div>
