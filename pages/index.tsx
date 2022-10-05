@@ -462,7 +462,11 @@ const Home: NextPage = () => {
    */
   const mostrarDominio = (funcion: any, dominio: any) => {
     let respuesta = respuestas.find((respuesta: any) => {
-      return respuesta.funcion === funcion && respuesta.dominio === dominio && respuesta.value <= 50;
+      return (
+        respuesta.funcion === funcion &&
+        respuesta.dominio === dominio &&
+        respuesta.value <= 50
+      );
     });
     if (respuesta) {
       return true;
@@ -581,91 +585,91 @@ const Home: NextPage = () => {
           </h1>
 
           <form onSubmit={handleSubmit}>
-          <div className="space-y-16 mb-12">
-            {data &&
-              data.funciones.map((funcion: any) => (
-                <div key={funcion.nombre} className="space-y-2">
-                  <h2 className="text-xl text-indigo-800 font-bold uppercase">
-                    {funcion.nombre}{" "}
-                    <span className="ml-2 text-[10px] text-gray-500 font-light">
-                      función
-                    </span>
-                  </h2>
-                  <div className="bg-white rounded-md shadow-md py-10 px-8 space-y-16">
-                    {funcion.dominios.map((dominio: any) => (
-                      <div key={dominio.nombre} className="space-y-4">
-                        <h3 className="text-lg font-semibold">
-                          {dominio.nombre}
-                        </h3>
-                        <div className="bg-indigo-50 p-6 rounded-md space-y-8">
-                          {dominio.preguntas.map(
-                            (pregunta: any, index: number) => (
-                              <div
-                                key={pregunta.pregunta}
-                                className="space-y-2"
-                              >
-                                <p className="text-md">
-                                  {index + 1}. {pregunta.pregunta}
-                                </p>
-                                {fieldTypes[pregunta.tipo || "default"] ? (
-                                  <div className="ml-4 flex items-center gap-16">
-                                    {fieldTypes[
-                                      pregunta.tipo || "default"
-                                    ].options.map((option: any) => (
-                                      <div
-                                        key={option.name}
-                                        className="space-x-2"
-                                      >
-                                        <input
-                                          required
-                                          type="radio"
-                                          name={snakeCase(
-                                            `${funcion.nombre}_${dominio.nombre}_${pregunta.pregunta}_${index}`
-                                          )}
-                                          id={snakeCase(
-                                            `${funcion.nombre}_${dominio.nombre}_${pregunta.pregunta}_${index}_${option.name}`
-                                          )}
-                                          value={option.value}
-                                          onChange={() =>
-                                            marcarRespuesta(
-                                              funcion.nombre,
-                                              dominio.nombre,
-                                              pregunta.pregunta,
-                                              option.value
-                                            )
-                                          }
-                                        />
-                                        <label
-                                          className="text-md"
-                                          htmlFor={snakeCase(
-                                            `${funcion.nombre}_${dominio.nombre}_${pregunta.pregunta}_${index}_${option.name}`
-                                          )}
+            <div className="space-y-16 mb-12">
+              {data &&
+                data.funciones.map((funcion: any) => (
+                  <div key={funcion.nombre} className="space-y-2">
+                    <h2 className="text-xl text-indigo-800 font-bold uppercase">
+                      {funcion.nombre}{" "}
+                      <span className="ml-2 text-[10px] text-gray-500 font-light">
+                        función
+                      </span>
+                    </h2>
+                    <div className="bg-white rounded-md shadow-md py-10 px-8 space-y-16">
+                      {funcion.dominios.map((dominio: any) => (
+                        <div key={dominio.nombre} className="space-y-4">
+                          <h3 className="text-lg font-semibold">
+                            {dominio.nombre}
+                          </h3>
+                          <div className="bg-indigo-50 p-6 rounded-md space-y-8">
+                            {dominio.preguntas.map(
+                              (pregunta: any, index: number) => (
+                                <div
+                                  key={pregunta.pregunta}
+                                  className="space-y-2"
+                                >
+                                  <p className="text-md">
+                                    {index + 1}. {pregunta.pregunta}
+                                  </p>
+                                  {fieldTypes[pregunta.tipo || "default"] ? (
+                                    <div className="ml-4 flex items-center gap-16">
+                                      {fieldTypes[
+                                        pregunta.tipo || "default"
+                                      ].options.map((option: any) => (
+                                        <div
+                                          key={option.name}
+                                          className="space-x-2"
                                         >
-                                          {option.label}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                ) : null}
-                              </div>
-                            )
-                          )}
+                                          <input
+                                            required
+                                            type="radio"
+                                            name={snakeCase(
+                                              `${funcion.nombre}_${dominio.nombre}_${pregunta.pregunta}_${index}`
+                                            )}
+                                            id={snakeCase(
+                                              `${funcion.nombre}_${dominio.nombre}_${pregunta.pregunta}_${index}_${option.name}`
+                                            )}
+                                            value={option.value}
+                                            onChange={() =>
+                                              marcarRespuesta(
+                                                funcion.nombre,
+                                                dominio.nombre,
+                                                pregunta.pregunta,
+                                                option.value
+                                              )
+                                            }
+                                          />
+                                          <label
+                                            className="text-md"
+                                            htmlFor={snakeCase(
+                                              `${funcion.nombre}_${dominio.nombre}_${pregunta.pregunta}_${index}_${option.name}`
+                                            )}
+                                          >
+                                            {option.label}
+                                          </label>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  ) : null}
+                                </div>
+                              )
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
-          </div>
+                ))}
+            </div>
 
-          <div className="sticky bottom-0 bg-white py-4 border-t shadow-t flex mb-20">
-            <button
-              type="submit"
-              className="m-auto px-12 py-4 text-white bg-indigo-500 rounded shadow"
-            >
-              Enviar
-            </button>
-          </div>
+            <div className="sticky bottom-0 bg-white py-4 border-t shadow-t flex mb-20">
+              <button
+                type="submit"
+                className="m-auto px-12 py-4 text-white bg-indigo-500 rounded shadow"
+              >
+                Enviar
+              </button>
+            </div>
           </form>
 
           {isSubmitted && (
@@ -681,30 +685,39 @@ const Home: NextPage = () => {
                   <div key={funcion.nombre}>
                     {mostrarFuncion(funcion.nombre) && (
                       <>
-                        <p className="text-xl font-bold mb-4">{funcion.nombre}</p>
+                        <p className="text-xl font-bold mb-4">
+                          {funcion.nombre}
+                        </p>
                         <div className="space-y-4">
-                        {funcion.dominios.map((dominio: any) => (
-                          <div key={dominio.nombre}>
-                            {mostrarDominio(funcion.nombre, dominio.nombre) && (
-                              <>
-                                <p className="text-lg font-semibold mb-2">{dominio.nombre}</p>
-                                <ul className="list-disc list-inside space-y-2 bg-indigo-50 p-4">
-                                  {dominio.preguntas.map(
-                                    (pregunta: any, index: number) => (
-                                      <>
-                                        {mostrarRecomendacion(
-                                          funcion.nombre,
-                                          dominio.nombre,
-                                          pregunta.pregunta
-                                        ) && <li>{pregunta.recomendacion}</li>}
-                                      </>
-                                    )
-                                  )}
-                                </ul>
-                              </>
-                            )}
-                          </div>
-                        ))}
+                          {funcion.dominios.map((dominio: any) => (
+                            <div key={dominio.nombre}>
+                              {mostrarDominio(
+                                funcion.nombre,
+                                dominio.nombre
+                              ) && (
+                                <>
+                                  <p className="text-lg font-semibold mb-2">
+                                    {dominio.nombre}
+                                  </p>
+                                  <ul className="list-disc list-inside space-y-2 bg-indigo-50 p-4">
+                                    {dominio.preguntas.map(
+                                      (pregunta: any, index: number) => (
+                                        <>
+                                          {mostrarRecomendacion(
+                                            funcion.nombre,
+                                            dominio.nombre,
+                                            pregunta.pregunta
+                                          ) && (
+                                            <li>{pregunta.recomendacion}</li>
+                                          )}
+                                        </>
+                                      )
+                                    )}
+                                  </ul>
+                                </>
+                              )}
+                            </div>
+                          ))}
                         </div>
                       </>
                     )}
@@ -712,12 +725,52 @@ const Home: NextPage = () => {
                 ))}
               {chartData && (
                 <div>
-                  <p className="text-xl font-bold text-center mb-8">Variación % Cumplimiento AS - IS</p>
+                  <p className="text-xl font-bold text-center mb-8">
+                    Variación % Cumplimiento AS - IS
+                  </p>
                   <Radar
                     width={400}
                     height={400}
                     data={chartData.data}
                     options={chartData.options}
+                  />
+                  <p className="text-xl font-bold text-center mx-8">TO BE</p>
+                  <Radar
+                    width={400}
+                    height={400}
+                    data={{
+                      labels: data.funciones.map(
+                        (funcion: any) => funcion.nombre
+                      ),
+                      datasets: [
+                        {
+                          label: "To be",
+                          data: [100, 100, 100, 100],
+                          backgroundColor: "rgba(46, 204, 113, 0.2)",
+                          borderColor: "rgb(46, 204, 113)",
+                          pointBackgroundColor: "rgb(46, 204, 113)",
+                          pointBorderColor: "#fff",
+                          pointHoverBackgroundColor: "#fff",
+                          pointHoverBorderColor: "rgb(46, 204, 113)",
+                        },
+                      ],
+                    }}
+                    options={{
+                      elements: {
+                        line: {
+                          borderWidth: 3,
+                        },
+                      },
+                      scales: {
+                        r: {
+                          angleLines: {
+                            display: false,
+                          },
+                          suggestedMin: 0,
+                          suggestedMax: 100,
+                        },
+                      },
+                    }}
                   />
                 </div>
               )}
