@@ -17,7 +17,8 @@ const Home: NextPage = () => {
   const [data, setData] = useState<any>();
   const [fieldTypes, setFieldTypes] = useState<any>();
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const [showRecomendaciones, setShowRecomendaciones] = useState<boolean>(false);
+  const [showRecomendaciones, setShowRecomendaciones] =
+    useState<boolean>(false);
 
   const [respuestas, setRespuestas] = useState<any>([]);
   const [recomendaciones, setRecomendaciones] = useState<any>([]);
@@ -106,7 +107,7 @@ const Home: NextPage = () => {
                   pregunta: "¿Clasifica los activos de su compañia?",
                   recomendacion:
                     "Se recomienda contar con una clasificación de los activos de la compañía tanto de software como de hardware",
-                  tipo:"tiempoPorAnio"
+                  tipo: "tiempoPorAnio",
                 },
                 {
                   pregunta:
@@ -732,22 +733,50 @@ const Home: NextPage = () => {
                   />
                 </div>
               )}
-              <div className="text-lg cursor-pointer font-semibold flex items-center gap-2" onClick={() => setShowRecomendaciones(!showRecomendaciones)}>
-                {
-                  showRecomendaciones ? (
-                    <>
-                      <span>Ocultar recomendaciones</span>
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
-                    </>
-                  ) : (
-                    <>
-                      <span>Ver recomendaciones</span>
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </>
-                  )
-                }
+              <div
+                className="text-lg cursor-pointer font-semibold flex items-center gap-2"
+                onClick={() => setShowRecomendaciones(!showRecomendaciones)}
+              >
+                {showRecomendaciones ? (
+                  <>
+                    <span>Ocultar recomendaciones</span>
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 15l7-7 7 7"
+                      ></path>
+                    </svg>
+                  </>
+                ) : (
+                  <>
+                    <span>Ver recomendaciones</span>
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </>
+                )}
               </div>
-              {data && showRecomendaciones &&
+              {data &&
+                showRecomendaciones &&
                 data.funciones.map((funcion: any) => (
                   <div key={funcion.nombre}>
                     {mostrarFuncion(funcion.nombre) && (
