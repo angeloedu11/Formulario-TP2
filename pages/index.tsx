@@ -104,10 +104,14 @@ const Home: NextPage = () => {
               nombre: "Inventario de Activos",
               preguntas: [
                 {
+                  pregunta: "¿Realiza el inventario de activos en su compañía?",
+                  recomendacion:
+                    "Se recomienda contar con un invetario de activos activos ya que ayuda a emplear sus activos de manera más efectiva, y a evitar compras innecesarias de activos mediante la reutilización de los recursos existentes.",
+                },
+                {
                   pregunta: "¿Clasifica los activos de su compañia?",
                   recomendacion:
                     "Se recomienda contar con una clasificación de los activos de la compañía tanto de software como de hardware",
-                  tipo: "tiempoPorAnio",
                 },
                 {
                   pregunta:
@@ -128,7 +132,7 @@ const Home: NextPage = () => {
                 },
                 {
                   pregunta:
-                    "¿Los activos que tiene su organización se encuentran actualizados?",
+                    "¿Los activos de Software que tiene su organización se encuentran actualizados?",
                   recomendacion:
                     "Se recomienda que sus activos siempre estén actualizados para si evitar una posible amenaza cibernetica.",
                 },
@@ -144,13 +148,13 @@ const Home: NextPage = () => {
               nombre: "Política de Ciberseguridad",
               preguntas: [
                 {
-                  pregunta: "¿Tiene una política de Ciberseguridad?",
+                  pregunta: "¿ Su compañia tiene una política de Ciberseguridad?",
                   recomendacion:
                     "Se recomienda tener una política de cibersegurida clara y sencilla para que lo entiendan todos sus colaboradores y pueda tener control de las ciberamenazas",
                 },
                 {
                   pregunta:
-                    "¿La política de ciberseguridad es conocida por sus colaboradores?",
+                    "¿Existe una evidencia que sus colaboradores conocen su política de ciberseguridad?",
                   recomendacion:
                     "Se recomienda que la política la conozcan todos sus colaboradores, ya que asi tendra una mejor cultura de ciberseguridad en su organización.",
                 },
@@ -166,33 +170,35 @@ const Home: NextPage = () => {
               nombre: "Gestión de Riesgos",
               preguntas: [
                 {
-                  pregunta: "¿Cuenta con un plan de riesgos?",
+                  pregunta: "¿La organización tiene un procedimiento de gestión de riesgos?",
                   recomendacion:
                     "Se recomienda contar con un plan de riesgos para prevenir la interrupción de su negocio y aumentar la estabilidad del mismo.",
                 },
                 {
                   pregunta:
-                    "¿Realiza una medición del impacto y probabilidad de un evento de ciberseguridad?",
+                    "¿Cuenta con un plan de riesgos?",
                   recomendacion:
                     "Se recomienda Contar con un plan para la gestión de riesgo y busqueda de vulnerabilidades.",
                 },
                 {
                   pregunta:
-                    "¿Tiene algún Software de búsqueda de vulnerabilidades?",
+                    "¿Tienen algún servicio contratado para identificar vulnerabilidades de los activos de información?",
                   recomendacion:
                     "Se recomienda contar con un servicio de análisis de vulnerabilidades, siendo así, la mejor manera de mantener la continuidad y eficiencia de los procesos para que este preparado para cualquier eventualidad, evitando daños de varios tipos para la empresa",
                 },
                 {
                   pregunta:
-                    "¿Frecuentemente hace una búsqueda de sus vulnerabilidades?",
+                    "¿Con qué frecuencia se realiza este análisis?",
                   recomendacion:
                     "Se recomienda que los análisis de vulnerabilidades se deben realizar de manera periódica. Debido al creciente número de vulnerabilidades a lo largo de los años.",
+                  tipo: "tiempoPorAnio",
                 },
                 {
                   pregunta:
-                    "¿Realiza búsqueda de sitios web clonados de su empresa?",
+                    "¿Realiza búsqueda de ciberamenzadas (clonados de páginas, publicación de la página)?",
                   recomendacion:
                     "Se recomienda realice búsqiedas de sitios web clonados, ya que sera de gran ayuda para evitar estafas para sus usuarios.",
+                    tipo: "tiempoPorAnio",
                 },
               ],
             },
@@ -206,15 +212,22 @@ const Home: NextPage = () => {
               preguntas: [
                 {
                   pregunta:
-                    "¿Tiene un inventario de cuentas y contraseñas de sus usuarios?",
+                    "¿Tiene un inventario de credenciales de sus empleados?",
                   recomendacion:
                     "Se recomienda tener un inventarios de las cuentas de usuarios que tiene su empresa para asi empezar a gestionarlas y saber que usuarios aun estan activos y darles de baja.",
                 },
                 {
                   pregunta:
-                    "¿En su organización existe el cambio de contraseña por un tiempo determinado?",
+                    "¿En su organización tienen la política de cambios de contraseñas por un tiempo determinado?",
                   recomendacion:
                     "Se recomienda que exista el cambio de contraseña en un tiempo determinado para asi mantener sus cuentas seguras.",
+                },
+                {
+                  pregunta:
+                    "¿Cuántas veces se cambia las contraseñas?",
+                  recomendacion:
+                    "Se recomienda que exista el cambio de contraseña en un tiempo determinado para asi mantener sus cuentas seguras.",
+                  tipo: "tiempoPorAnio",
                 },
                 {
                   pregunta:
@@ -245,19 +258,19 @@ const Home: NextPage = () => {
                 },
                 {
                   pregunta:
-                    "¿Cuenta con alguna herramienta para la seguridad en la nube?",
+                    "En el contrato del servicio del proveedor de la nube ¿Tiene cláusulas de protección de datos, perdida de información, seguridad, hackeo?",
                   recomendacion:
                     "Se recomienda tener alguna herramienta para la seguridad en la nube",
                 },
                 {
                   pregunta:
-                    "¿El almacenamiento de su backup se encuentra en la nube?",
+                    "¿En el contrato el almacenamiento de su backuo se encuentra en la nube?",
                   recomendacion:
                     "Se recomienda que su almacenamiento de backup se encuentre en la nube",
                 },
                 {
                   pregunta:
-                    "¿El almacenamiento que comparte en la nube esta cifrado?",
+                    "¿La información que comparte en la nube esta cifrado?",
                   recomendacion:
                     "Se recomienda que el almacenamiento de la nube este cifrado",
                 },
@@ -282,6 +295,7 @@ const Home: NextPage = () => {
                   pregunta: "¿Realiza campañas de capacitación a su personal?",
                   recomendacion:
                     "Se recomienda realizar campañas de capacitación a su personal",
+                  tipo: "tiempoPorAnio",
                 },
                 {
                   pregunta: "¿Realiza pruebas de ingeniería social?",
@@ -290,22 +304,7 @@ const Home: NextPage = () => {
                 },
               ],
             },
-            {
-              nombre: "Plan de respuesta y recuperación",
-              preguntas: [
-                {
-                  pregunta: "¿Tiene un plan de respuesta ante un incidente?",
-                  recomendacion:
-                    "Se recomienda tener un plan de respuesta ante un incidente",
-                },
-                {
-                  pregunta:
-                    "¿Existe roles y responsabilidades en su equipo de recuperación?",
-                  recomendacion:
-                    "Se recomienda que existan roles y responsabilidades en su equipo de recuperación",
-                },
-              ],
-            },
+            
             {
               nombre: "Seguridad de proveedores",
               preguntas: [
@@ -340,7 +339,7 @@ const Home: NextPage = () => {
                 },
                 {
                   pregunta:
-                    "¿Los colaboradores cuentan con un correo para el uso laboral?",
+                    "¿Los colaboradores cuentan con un correo empresarial para el uso laboral?",
                   recomendacion:
                     "Se recomienda que los colaboradores cuentan con un correo para el uso laboral",
                 },
@@ -352,7 +351,7 @@ const Home: NextPage = () => {
                 },
                 {
                   pregunta:
-                    "¿Cuentan con acuerdos de confidencialidad de información?",
+                    "¿Cuentan con acuerdos de confidencialidad de información con los empleados?",
                   recomendacion:
                     "Se recomienda tener acuerdos de confidencialidad de información",
                 },
@@ -363,6 +362,22 @@ const Home: NextPage = () => {
         {
           nombre: "Responder",
           dominios: [
+            {
+              nombre: "Plan de respuesta y recuperación",
+              preguntas: [
+                {
+                  pregunta: "¿Tiene un plan de respuesta ante un incidente?",
+                  recomendacion:
+                    "Se recomienda tener un plan de respuesta ante un incidente",
+                },
+                {
+                  pregunta:
+                    "¿Existe roles y responsabilidades en su equipo de recuperación?",
+                  recomendacion:
+                    "Se recomienda que existan roles y responsabilidades en su equipo de recuperación",
+                },
+              ],
+            },
             {
               nombre: "Ejecución de respuestas ante incidentes",
               preguntas: [
@@ -396,6 +411,12 @@ const Home: NextPage = () => {
                 {
                   pregunta:
                     "¿Cuenta con un plan de recuperación despues de finalizar actividades ante un evento de ciberseguridad?",
+                  recomendacion:
+                    "Se recomienda tener un plan de recuperación despues de finalizar actividades ante un evento de ciberseguridad",
+                },
+                {
+                  pregunta:
+                    "¿Tiene un plan DRP en su organización?",
                   recomendacion:
                     "Se recomienda tener un plan de recuperación despues de finalizar actividades ante un evento de ciberseguridad",
                 },
