@@ -383,7 +383,7 @@ const Home: NextPage = () => {
               preguntas: [
                 {
                   pregunta:
-                    "¿Tiene un control de cambios despulpues de ejecutar un plan de respuesta ante incidentes de ciberseguridad?",
+                    "¿Tiene un control de cambios despues de ejecutar un plan de respuesta ante incidentes de ciberseguridad?",
                   recomendacion:
                     "Se recomienda tener un control de cambios despues de ejecutar un plan de respuesta ante incidentes de ciberseguridad",
                 },
